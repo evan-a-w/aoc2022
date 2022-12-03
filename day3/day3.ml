@@ -2,7 +2,7 @@ open! Core
 
 let inp () = In_channel.create "input/day3.txt"
 
-let (<<) f g x = f (g x)
+let (<|) f g x = f (g x)
 
 let score c = match c with
   | 'a'..'z' -> Char.to_int c - Char.to_int 'a' + 1
@@ -10,7 +10,7 @@ let score c = match c with
   | _ -> failwith "invalid character";;
 
 let string_to_set = 
-  let accum a = Int.bit_or a << (Int.shift_left 1) << score in
+  let accum a = Int.bit_or a <| (Int.shift_left 1) <| score in
   String.fold ~init:0 ~f:accum
 
 let rucksacks =
