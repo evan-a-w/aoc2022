@@ -21,13 +21,8 @@ let rucksacks =
          let second = String.sub line ~pos:len ~len in
          (string_to_set first, string_to_set second))
 
-let lowest_bit_ind x =
-  let lb = Int.bit_and x (-x) in
-  Float.log (Float.of_int lb) /. Float.log 2.0 |> Int.of_float
-
-let in_both a b =
-  let inter = Int.bit_and a b in
-  lowest_bit_ind inter
+let lowest_bit_ind x = Int.bit_and x (-x) |> Int.clz |> ( - ) 62
+let in_both a b = Int.bit_and a b |> lowest_bit_ind
 
 let threes =
   In_channel.input_lines @@ inp ()
